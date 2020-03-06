@@ -3,7 +3,8 @@ import os
 import numpy as np
 import FaceRecognition as fr
 
-test_img = cv2.imread('C:/Users/Acer/Desktop/FaceFace/FaceRecognition/FaceRecognition/rachit10.jpg')
+test_loc = os.path.abspath('test1.jpg')
+test_img = cv2.imread(test_loc)
 faces_detected, gray_img = fr.faceDetection(test_img)
 
 #for (x,y,w,h) in faces_detected:
@@ -13,15 +14,17 @@ faces_detected, gray_img = fr.faceDetection(test_img)
 #cv2.waitKey(0)
 #cv2.destroyAllWindows
 
-#faces,faceID = fr.labels_for_training_data('C:/Users/Acer/Desktop/FaceFace/FaceRecognition/FaceRecognition/Image')
+img_location = os.path.abspath('Image')
+faces,faceID = fr.labels_for_training_data(img_location)
 
-#face_recognizer = fr.train_classifier(faces,faceID)
+face_recognizer = fr.train_classifier(faces,faceID)
 
-#face_recognizer.save('traindata.yml')
+face_recognizer.save('traindata.yml')
 
 face_recognizer = cv2.face.LBPHFaceRecognizer_create()
-face_recognizer.read('C:/Users/Acer/Desktop/FaceFace/FaceRecognition/FaceRecognition/traindata.yml')
-name = {1:"Andy",0:"Rachit"}
+yml_loc = os.path.abspath('traindata.yml')
+face_recognizer.read(yml_loc)
+name = {1:"Andy",0:"Rachit",2:"Mili",3:"Cody",4:"Zack"}
 
 for fs in faces_detected:
     (x,y,w,h) = fs
@@ -29,6 +32,7 @@ for fs in faces_detected:
     label,confidence = face_recognizer.predict(roi_gray)
     fr.draw_rect(test_img,fs)
     predicted_name = name[label]
+    print(confidence)
     #if confidence>37:
     #    continue
     fr.put_text(test_img,predicted_name,x,y)

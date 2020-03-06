@@ -5,7 +5,8 @@ import numpy as np
 import FaceRecognition as fr
 
 face_recognizer = cv2.face.LBPHFaceRecognizer_create()
-face_recognizer.read('C:/Users/Acer/Desktop/FaceFace/FaceRecognition/FaceRecognition/traindata.yml')
+strr = os.path.abspath('traindata.yml')
+face_recognizer.read(strr)
 name = {1:"Andy",0:"Rachit"}
 
 cap = cv2.VideoCapture(0)
