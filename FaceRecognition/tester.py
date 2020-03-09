@@ -3,7 +3,7 @@ import os
 import numpy as np
 import FaceRecognition as fr
 
-test_loc = os.path.abspath('test1.jpg')
+test_loc = os.path.abspath('rachit10.jpg')
 test_img = cv2.imread(test_loc)
 faces_detected, gray_img = fr.faceDetection(test_img)
 
